@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block page_title%}
+<h1>Modificar movimiento</h1>
+{% endblock page_title %}
+
+{% block contenido %}
+
+{% if form.errors %}
+<div class="errores">
+  <p>
+    El formulario tiene errores. ¿Puedes corregirlos?
+  </p>
+  <ul>
+    {% for error in form.errors.items() %}
+    <li>
+      {{error[0]}}: {{error[1][0]}}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<form action="/editar/{{ id }}" method="post" novalidate>
+  {{ form.csrf_token }}
+  {{ form.id }}
+
+  <!-- Fecha -->
+  <div class="campo-formulario">
+    {{ form.fecha.label }}
+    {{ form.fecha }}
+  </div>
+
+  {% if form.errors %}
+  <div class="errores">
+    <ul>
+      {% for error in form.errors.items() %}
+      <li>
+        {{error[1][0]}}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+
+  
+  <!-- Concepto -->
+  <div class="campo-formulario">
+    {{ form.concepto.label }}
+    {{ form.concepto }}
+  </div>
+
+  <!-- Tipo -->
+  <div class="campo-formulario">
+    {% for campo in form.tipo %}
+    {{ campo }}
+    {{ campo.label }}
+    {% endfor %}
+  </div>
+
+  <!-- Cantidad -->
+  <div class="campo-formulario">
+    {{ form.cantidad.label }}
+    {{ form.cantidad }}
+  </div>
+
+  <!-- Botón de enviar -->
+  <div class="acciones">
+    {{ form.submit }}
+  </div>
+</form>
+
+{% endblock contenido %}
